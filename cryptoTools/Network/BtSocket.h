@@ -71,7 +71,7 @@ namespace osuCrypto {
         BtSocket(BtIOService& ios);
 
         boost::asio::ip::tcp::socket mHandle;
-        boost::asio::strand mSendStrand, mRecvStrand;
+        boost::asio::io_service::strand mSendStrand, mRecvStrand;
 
         std::deque<BoostIOOperation> mSendQueue, mRecvQueue;
         bool mStopped;
