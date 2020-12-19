@@ -1,0 +1,71 @@
+key = partyID value = 0
+key = partiesNumber value = 5
+key = numBins value = 5201
+key = inputsFile value = ../../in_party_0.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+key = partyID value = 0
+key = partiesNumber value = 5
+key = numBins value = 5201
+key = inputsFile value = ../../in_party_0.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+number of parties = 5
+ID = 0
+partiesFile = Parties.txt
+ProtocolParty constructor
+in communication
+num parties = 5
+my id = 0
+my port = 31000
+other port = 8200
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 31001
+other port = 8400
+accepting...
+channel established
+my port = 31002
+other port = 8600
+accepting...
+channel established
+my port = 31003
+other port = 8800
+accepting...
+channel established
+time in milliseconds initializationPhase: 0
+Entered constructor
+Party 0 has read 5202 5202 675427653470613409
+Element size is 8
+Constructor done 
+Time to initialise matrices is: 0 milliseconds.
+Generating double sharings...
+no_random: 5202 no_buckets: 1735 N: 5 T: 2
+modDoubleRandom() sends: 138800 bytes.
+Party 0has shares: 1866147333893201195 1400167855067610819
+T- and additive sharings generated in 1505 milliseconds.
+Every party sends: 69400 bytes in total.
+T-sharings generated in 3milliseconds.
+Each party sends a total of: 138800 for T and 2T shares.
+T- and 2T-sharings generated in 4 milliseconds.
+addShareOpen for 0:
+In reshare(), P0 sends a total of: 208080bytes.
+Party 0 has received t-sharings: 1857213015307184596
+To open shares, receive shares of size: 208080 bytes.
+Circuit evaluated in 9 milliseconds.
+0 found at 4097 positions. 
+638312bytes sent.
+time in milliseconds for 1 runs: 1522

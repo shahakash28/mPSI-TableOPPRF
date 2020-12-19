@@ -1,0 +1,118 @@
+key = partyID value = 8
+key = partiesNumber value = 15
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_8.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+key = partyID value = 8
+key = partiesNumber value = 15
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_8.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+number of parties = 15
+ID = 8
+partiesFile = Parties.txt
+ProtocolParty constructor
+in communication
+num parties = 15
+my id = 8
+my port = 9600
+other port = 31007
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9601
+other port = 8207
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9602
+other port = 8407
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9603
+other port = 8607
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9604
+other port = 8807
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9605
+other port = 9007
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9606
+other port = 9207
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9607
+other port = 9407
+accepting...
+channel established
+my port = 9608
+other port = 9808
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 9609
+other port = 10008
+accepting...
+channel established
+my port = 9610
+other port = 10208
+accepting...
+channel established
+my port = 9611
+other port = 10408
+accepting...
+channel established
+my port = 9612
+other port = 10608
+accepting...
+channel established
+my port = 9613
+other port = 10808
+accepting...
+channel established
+time in milliseconds initializationPhase: 3
+Entered constructor
+Party 8 has read 1331692 1331692 1546253889364256974
+Element size is 8
+Constructor done 
+Time to initialise matrices is: 0 milliseconds.
+Generating double sharings...
+no_random: 1331692 no_buckets: 166462 N: 15 T: 7
+modDoubleRandom() sends: 39950880 bytes.
+Party 8has shares: 521259289840568879 1584217234013852933
+T- and additive sharings generated in 5097 milliseconds.
+Every party sends: 19975440 bytes in total.
+T-sharings generated in 2686milliseconds.
+Each party sends a total of: 39950880 for T and 2T shares.
+T- and 2T-sharings generated in 6191 milliseconds.
+addShareOpen for 8:
+In addShareOpen(), 8 sends 10653536 bytes
+Party 8 has received t-sharings: 1005064888495491003
+To open shares, receive shares of size: 159803040 bytes.
+Circuit evaluated in 8818 milliseconds.
+0 found at 860147 positions. 
+131837808bytes sent.
+time in milliseconds for 1 runs: 22828

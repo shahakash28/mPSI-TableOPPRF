@@ -1,0 +1,80 @@
+key = partyID value = 2
+key = partiesNumber value = 3
+key = inputsFile value = inputs333.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 5
+key = partyID value = 2
+key = partiesNumber value = 3
+key = inputsFile value = inputs333.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 5
+number of parties = 3
+ID = 2
+partiesFile = Parties.txt
+in communication
+num parties = 3
+my id = 2
+my port = 8400
+other port = 31001
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8401
+other port = 8201
+accepting...
+channel established
+time in milliseconds initializationPhase: 3
+time in milliseconds generateRandomShares: 348
+Size is 8000000
+time in milliseconds honestMult: 158
+time in milliseconds preparationPhase: 980
+time in milliseconds inputPhase: 5
+time in milliseconds computationPhase: 264
+time in milliseconds verificationPhase: 829
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 243
+Size is 8000000
+time in milliseconds honestMult: 140
+time in milliseconds preparationPhase: 933
+time in milliseconds inputPhase: 5
+time in milliseconds computationPhase: 264
+time in milliseconds verificationPhase: 849
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 256
+Size is 8000000
+time in milliseconds honestMult: 141
+time in milliseconds preparationPhase: 965
+time in milliseconds inputPhase: 4
+time in milliseconds computationPhase: 265
+time in milliseconds verificationPhase: 823
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 325
+Size is 8000000
+time in milliseconds honestMult: 168
+time in milliseconds preparationPhase: 1023
+time in milliseconds inputPhase: 1
+time in milliseconds computationPhase: 294
+time in milliseconds verificationPhase: 826
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 257
+Size is 8000000
+time in milliseconds honestMult: 160
+time in milliseconds preparationPhase: 932
+time in milliseconds inputPhase: 6
+time in milliseconds computationPhase: 280
+time in milliseconds verificationPhase: 829
+time in milliseconds outputPhase: 0
+time in milliseconds for 5 runs: 10389
+end main

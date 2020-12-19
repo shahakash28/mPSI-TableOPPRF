@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Network/BtChannel.h"
 #include "Network/BtEndpoint.h"
+//#include "../MPCHonestMajority/MPSI_Party.h"
 
 using namespace std;
 #include "Common/Defines.h"
@@ -25,7 +26,11 @@ void usage(const char* argv0)
 }
 int main(int argc, char** argv)
 {
-
+	/*char **circuitArgv;
+	std::vector<uint64_t> bins;
+  MPSI_Party<ZpMersenneLongElement> mpsi(1, circuitArgv, bins, 4096);
+	mpsi.readMPSIInputs(bins, 4096);
+	mpsi.runMPSI();*/
 	//myCuckooTest_stash();
 	//Table_Based_Random_Test();
 	//OPPRF2_EmptrySet_Test_Main();
@@ -53,7 +58,7 @@ int main(int argc, char** argv)
 			OPPRFnt_EmptrySet_Test_Main();
 		break;
 
-	case 7: //2PSI 
+	case 7: //2PSI
 		if (argv[1][0] == '-' && argv[1][1] == 'n')
 			nParties = atoi(argv[2]);
 		else

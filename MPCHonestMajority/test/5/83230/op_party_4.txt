@@ -1,0 +1,73 @@
+key = partyID value = 4
+key = partiesNumber value = 5
+key = numBins value = 83230
+key = inputsFile value = ../../in_party_4.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+key = partyID value = 4
+key = partiesNumber value = 5
+key = numBins value = 83230
+key = inputsFile value = ../../in_party_4.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+number of parties = 5
+ID = 4
+partiesFile = Parties.txt
+ProtocolParty constructor
+in communication
+num parties = 5
+my id = 4
+my port = 8800
+other port = 31003
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8801
+other port = 8203
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8802
+other port = 8403
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8803
+other port = 8603
+accepting...
+channel established
+time in milliseconds initializationPhase: 0
+Entered constructor
+Party 4 has read 83231 83231 916162433947426476
+Element size is 8
+Constructor done 
+Time to initialise matrices is: 0 milliseconds.
+Generating double sharings...
+no_random: 83231 no_buckets: 27744 N: 5 T: 2
+modDoubleRandom() sends: 2219520 bytes.
+Party 4has shares: 256415728508429917 1969062522449875563
+T- and additive sharings generated in 46 milliseconds.
+Every party sends: 1109760 bytes in total.
+T-sharings generated in 18milliseconds.
+Each party sends a total of: 2219520 for T and 2T shares.
+T- and 2T-sharings generated in 58 milliseconds.
+addShareOpen for 4:
+In addShareOpen(), 4 sends 665848 bytes
+Party 4 has received t-sharings: 807737638097767503
+To open shares, receive shares of size: 3329240 bytes.
+Circuit evaluated in 112 milliseconds.
+0 found at 65537 positions. 
+7546344bytes sent.
+time in milliseconds for 1 runs: 237

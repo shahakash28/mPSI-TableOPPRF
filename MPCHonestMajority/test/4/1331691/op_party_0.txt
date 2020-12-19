@@ -1,0 +1,66 @@
+key = partyID value = 0
+key = partiesNumber value = 4
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_0.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+key = partyID value = 0
+key = partiesNumber value = 4
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_0.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+number of parties = 4
+ID = 0
+partiesFile = Parties.txt
+ProtocolParty constructor
+in communication
+num parties = 4
+my id = 0
+my port = 31000
+other port = 8200
+accepting...
+channel established
+my port = 31001
+other port = 8400
+accepting...
+channel established
+my port = 31002
+other port = 8600
+accepting...
+channel established
+time in milliseconds initializationPhase: 0
+Entered constructor
+Party 0 has read 1331692 1331692 991172224906723564
+Element size is 8
+Constructor done 
+Time to initialise matrices is: 0 milliseconds.
+Generating double sharings...
+no_random: 1331692 no_buckets: 443898 N: 4 T: 1
+modDoubleRandom() sends: 28409472 bytes.
+Party 0has shares: 1215065840936561238 1249403973332586400
+T- and additive sharings generated in 1487 milliseconds.
+Every party sends: 14204736 bytes in total.
+T-sharings generated in 377milliseconds.
+Each party sends a total of: 28409472 for T and 2T shares.
+T- and 2T-sharings generated in 421 milliseconds.
+addShareOpen for 0:
+In reshare(), P0 sends a total of: 42614144bytes.
+Party 0 has received t-sharings: 212514888363574516
+To open shares, receive shares of size: 42614144 bytes.
+Circuit evaluated in 1125 milliseconds.
+0 found at 1048577 positions. 
+134944896bytes sent.
+time in milliseconds for 1 runs: 3448

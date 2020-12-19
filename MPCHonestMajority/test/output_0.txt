@@ -1,0 +1,324 @@
+key = partyID value = 0
+key = partiesNumber value = 3
+key = inputsFile value = inputs333.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 5
+key = partyID value = 0
+key = partiesNumber value = 3
+key = inputsFile value = inputs333.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 5
+number of parties = 3
+ID = 0
+partiesFile = Parties.txt
+in communication
+num parties = 3
+my id = 0
+my port = 31000
+other port = 8200
+accepting...
+channel established
+my port = 31001
+other port = 8400
+accepting...
+channel established
+time in milliseconds initializationPhase: 2
+time in milliseconds generateRandomShares: 270
+time in milliseconds honestMult: 156
+time in milliseconds preparationPhase: 1009
+time in milliseconds inputPhase: 11
+time in milliseconds computationPhase: 259
+time in milliseconds verificationPhase: 831
+the result for 1000949 is : 1
+the result for 1000950 is : 1
+the result for 1000951 is : 1
+the result for 1000952 is : 1
+the result for 1000953 is : 1
+the result for 1000954 is : 1
+the result for 1000955 is : 1
+the result for 1000956 is : 1
+the result for 1000957 is : 1
+the result for 1000958 is : 1
+the result for 1000959 is : 1
+the result for 1000960 is : 1
+the result for 1000961 is : 1
+the result for 1000962 is : 1
+the result for 1000963 is : 1
+the result for 1000964 is : 1
+the result for 1000965 is : 1
+the result for 1000966 is : 1
+the result for 1000967 is : 1
+the result for 1000968 is : 1
+the result for 1000969 is : 1
+the result for 1000970 is : 1
+the result for 1000971 is : 1
+the result for 1000972 is : 1
+the result for 1000973 is : 1
+the result for 1000974 is : 1
+the result for 1000975 is : 1
+the result for 1000976 is : 1
+the result for 1000977 is : 1
+the result for 1000978 is : 1
+the result for 1000979 is : 1
+the result for 1000980 is : 1
+the result for 1000981 is : 1
+the result for 1000982 is : 1
+the result for 1000983 is : 1
+the result for 1000984 is : 1
+the result for 1000985 is : 1
+the result for 1000986 is : 1
+the result for 1000987 is : 1
+the result for 1000988 is : 1
+the result for 1000989 is : 1
+the result for 1000990 is : 1
+the result for 1000991 is : 1
+the result for 1000992 is : 1
+the result for 1000993 is : 1
+the result for 1000994 is : 1
+the result for 1000995 is : 1
+the result for 1000996 is : 1
+the result for 1000997 is : 1
+the result for 1000998 is : 1
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 262
+time in milliseconds honestMult: 171
+time in milliseconds preparationPhase: 929
+time in milliseconds inputPhase: 8
+time in milliseconds computationPhase: 264
+time in milliseconds verificationPhase: 849
+the result for 1000949 is : 1
+the result for 1000950 is : 1
+the result for 1000951 is : 1
+the result for 1000952 is : 1
+the result for 1000953 is : 1
+the result for 1000954 is : 1
+the result for 1000955 is : 1
+the result for 1000956 is : 1
+the result for 1000957 is : 1
+the result for 1000958 is : 1
+the result for 1000959 is : 1
+the result for 1000960 is : 1
+the result for 1000961 is : 1
+the result for 1000962 is : 1
+the result for 1000963 is : 1
+the result for 1000964 is : 1
+the result for 1000965 is : 1
+the result for 1000966 is : 1
+the result for 1000967 is : 1
+the result for 1000968 is : 1
+the result for 1000969 is : 1
+the result for 1000970 is : 1
+the result for 1000971 is : 1
+the result for 1000972 is : 1
+the result for 1000973 is : 1
+the result for 1000974 is : 1
+the result for 1000975 is : 1
+the result for 1000976 is : 1
+the result for 1000977 is : 1
+the result for 1000978 is : 1
+the result for 1000979 is : 1
+the result for 1000980 is : 1
+the result for 1000981 is : 1
+the result for 1000982 is : 1
+the result for 1000983 is : 1
+the result for 1000984 is : 1
+the result for 1000985 is : 1
+the result for 1000986 is : 1
+the result for 1000987 is : 1
+the result for 1000988 is : 1
+the result for 1000989 is : 1
+the result for 1000990 is : 1
+the result for 1000991 is : 1
+the result for 1000992 is : 1
+the result for 1000993 is : 1
+the result for 1000994 is : 1
+the result for 1000995 is : 1
+the result for 1000996 is : 1
+the result for 1000997 is : 1
+the result for 1000998 is : 1
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 303
+time in milliseconds honestMult: 177
+time in milliseconds preparationPhase: 962
+time in milliseconds inputPhase: 7
+time in milliseconds computationPhase: 267
+time in milliseconds verificationPhase: 823
+the result for 1000949 is : 1
+the result for 1000950 is : 1
+the result for 1000951 is : 1
+the result for 1000952 is : 1
+the result for 1000953 is : 1
+the result for 1000954 is : 1
+the result for 1000955 is : 1
+the result for 1000956 is : 1
+the result for 1000957 is : 1
+the result for 1000958 is : 1
+the result for 1000959 is : 1
+the result for 1000960 is : 1
+the result for 1000961 is : 1
+the result for 1000962 is : 1
+the result for 1000963 is : 1
+the result for 1000964 is : 1
+the result for 1000965 is : 1
+the result for 1000966 is : 1
+the result for 1000967 is : 1
+the result for 1000968 is : 1
+the result for 1000969 is : 1
+the result for 1000970 is : 1
+the result for 1000971 is : 1
+the result for 1000972 is : 1
+the result for 1000973 is : 1
+the result for 1000974 is : 1
+the result for 1000975 is : 1
+the result for 1000976 is : 1
+the result for 1000977 is : 1
+the result for 1000978 is : 1
+the result for 1000979 is : 1
+the result for 1000980 is : 1
+the result for 1000981 is : 1
+the result for 1000982 is : 1
+the result for 1000983 is : 1
+the result for 1000984 is : 1
+the result for 1000985 is : 1
+the result for 1000986 is : 1
+the result for 1000987 is : 1
+the result for 1000988 is : 1
+the result for 1000989 is : 1
+the result for 1000990 is : 1
+the result for 1000991 is : 1
+the result for 1000992 is : 1
+the result for 1000993 is : 1
+the result for 1000994 is : 1
+the result for 1000995 is : 1
+the result for 1000996 is : 1
+the result for 1000997 is : 1
+the result for 1000998 is : 1
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 230
+time in milliseconds honestMult: 203
+time in milliseconds preparationPhase: 1015
+time in milliseconds inputPhase: 7
+time in milliseconds computationPhase: 293
+time in milliseconds verificationPhase: 827
+the result for 1000949 is : 1
+the result for 1000950 is : 1
+the result for 1000951 is : 1
+the result for 1000952 is : 1
+the result for 1000953 is : 1
+the result for 1000954 is : 1
+the result for 1000955 is : 1
+the result for 1000956 is : 1
+the result for 1000957 is : 1
+the result for 1000958 is : 1
+the result for 1000959 is : 1
+the result for 1000960 is : 1
+the result for 1000961 is : 1
+the result for 1000962 is : 1
+the result for 1000963 is : 1
+the result for 1000964 is : 1
+the result for 1000965 is : 1
+the result for 1000966 is : 1
+the result for 1000967 is : 1
+the result for 1000968 is : 1
+the result for 1000969 is : 1
+the result for 1000970 is : 1
+the result for 1000971 is : 1
+the result for 1000972 is : 1
+the result for 1000973 is : 1
+the result for 1000974 is : 1
+the result for 1000975 is : 1
+the result for 1000976 is : 1
+the result for 1000977 is : 1
+the result for 1000978 is : 1
+the result for 1000979 is : 1
+the result for 1000980 is : 1
+the result for 1000981 is : 1
+the result for 1000982 is : 1
+the result for 1000983 is : 1
+the result for 1000984 is : 1
+the result for 1000985 is : 1
+the result for 1000986 is : 1
+the result for 1000987 is : 1
+the result for 1000988 is : 1
+the result for 1000989 is : 1
+the result for 1000990 is : 1
+the result for 1000991 is : 1
+the result for 1000992 is : 1
+the result for 1000993 is : 1
+the result for 1000994 is : 1
+the result for 1000995 is : 1
+the result for 1000996 is : 1
+the result for 1000997 is : 1
+the result for 1000998 is : 1
+time in milliseconds outputPhase: 0
+time in milliseconds generateRandomShares: 318
+time in milliseconds honestMult: 157
+time in milliseconds preparationPhase: 929
+time in milliseconds inputPhase: 10
+time in milliseconds computationPhase: 280
+time in milliseconds verificationPhase: 828
+the result for 1000949 is : 1
+the result for 1000950 is : 1
+the result for 1000951 is : 1
+the result for 1000952 is : 1
+the result for 1000953 is : 1
+the result for 1000954 is : 1
+the result for 1000955 is : 1
+the result for 1000956 is : 1
+the result for 1000957 is : 1
+the result for 1000958 is : 1
+the result for 1000959 is : 1
+the result for 1000960 is : 1
+the result for 1000961 is : 1
+the result for 1000962 is : 1
+the result for 1000963 is : 1
+the result for 1000964 is : 1
+the result for 1000965 is : 1
+the result for 1000966 is : 1
+the result for 1000967 is : 1
+the result for 1000968 is : 1
+the result for 1000969 is : 1
+the result for 1000970 is : 1
+the result for 1000971 is : 1
+the result for 1000972 is : 1
+the result for 1000973 is : 1
+the result for 1000974 is : 1
+the result for 1000975 is : 1
+the result for 1000976 is : 1
+the result for 1000977 is : 1
+the result for 1000978 is : 1
+the result for 1000979 is : 1
+the result for 1000980 is : 1
+the result for 1000981 is : 1
+the result for 1000982 is : 1
+the result for 1000983 is : 1
+the result for 1000984 is : 1
+the result for 1000985 is : 1
+the result for 1000986 is : 1
+the result for 1000987 is : 1
+the result for 1000988 is : 1
+the result for 1000989 is : 1
+the result for 1000990 is : 1
+the result for 1000991 is : 1
+the result for 1000992 is : 1
+the result for 1000993 is : 1
+the result for 1000994 is : 1
+the result for 1000995 is : 1
+the result for 1000996 is : 1
+the result for 1000997 is : 1
+the result for 1000998 is : 1
+time in milliseconds outputPhase: 0
+time in milliseconds for 5 runs: 10422
+end main

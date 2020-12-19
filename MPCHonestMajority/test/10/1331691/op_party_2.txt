@@ -1,0 +1,92 @@
+key = partyID value = 2
+key = partiesNumber value = 10
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_2.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+key = partyID value = 2
+key = partiesNumber value = 10
+key = numBins value = 1331691
+key = inputsFile value = ../../in_party_2.txt
+key = outputsFile value = output.txt
+key = circuitFile value = ic.txt
+key = fieldType value = ZpMersenne61
+key = genRandomSharesType value = HIM
+key = multType value = DN
+key = verifyType value = Single
+key = partiesFile value = Parties.txt
+key = internalIterationsNumber value = 1
+number of parties = 10
+ID = 2
+partiesFile = Parties.txt
+ProtocolParty constructor
+in communication
+num parties = 10
+my id = 2
+my port = 8400
+other port = 31001
+accepting...
+channel established
+my port = 8401
+other port = 8201
+accepting...
+channel established
+my port = 8402
+other port = 8602
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8403
+other port = 8802
+accepting...
+channel established
+my port = 8404
+other port = 9002
+Failed to connect. sleeping for 500 milliseconds, connect: Connection refused
+accepting...
+channel established
+my port = 8405
+other port = 9202
+accepting...
+channel established
+my port = 8406
+other port = 9402
+accepting...
+channel established
+my port = 8407
+other port = 9602
+accepting...
+channel established
+my port = 8408
+other port = 9802
+accepting...
+channel established
+time in milliseconds initializationPhase: 0
+Entered constructor
+Party 2 has read 1331692 1331692 2199519360864726272
+Element size is 8
+Constructor done 
+Time to initialise matrices is: 0 milliseconds.
+Generating double sharings...
+no_random: 1331692 no_buckets: 221949 N: 10 T: 4
+modDoubleRandom() sends: 35511840 bytes.
+Party 2has shares: 2084187254130877989 736211792940648717
+T- and additive sharings generated in 3950 milliseconds.
+Every party sends: 17755920 bytes in total.
+T-sharings generated in 1197milliseconds.
+Each party sends a total of: 35511840 for T and 2T shares.
+T- and 2T-sharings generated in 2472 milliseconds.
+addShareOpen for 2:
+In addShareOpen(), 2 sends 10653536 bytes
+Party 2 has received t-sharings: 739441500575408665
+To open shares, receive shares of size: 106535360 bytes.
+Circuit evaluated in 4226 milliseconds.
+0 found at 1048576 positions. 
+120740208bytes sent.
+time in milliseconds for 1 runs: 11945
