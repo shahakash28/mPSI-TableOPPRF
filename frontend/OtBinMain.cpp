@@ -2065,11 +2065,12 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		}
 		else {
 			std::vector<std::vector<std::uint64_t>> sub_bins(nParties - 1);
-			sub_bins[0].resize(nbins);
+			
 			for (u64 pIdx = 1; pIdx < nParties; ++pIdx) {
 				if (pIdx != myIdx) {
+					sub_bins[pIdx - 1].resize(nbins);
 					for(u64 i = 0; i < nbins; ++i) {
-						memcpy(&sub_bins[pIdx][i], &recvPayLoads[pIdx][i], sizeof(std::uint64_t));
+						memcpy(&sub_bins[pIdx - 1][i], &recvPayLoads[pIdx][i], sizeof(std::uint64_t));
 					}
 				}
 			}
