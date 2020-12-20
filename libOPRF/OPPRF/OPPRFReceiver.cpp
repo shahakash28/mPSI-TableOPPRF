@@ -83,7 +83,7 @@ namespace osuCrypto
 
 		auto& chl0 = *chls[0];
 
-		// we need a random hash function, so we will both commit to a seed and then later decommit. 
+		// we need a random hash function, so we will both commit to a seed and then later decommit.
 		//This is the commitments phase
 		//Commit comm(myHashSeed), theirComm;
 		//chl0.asyncSend(comm.data(), comm.size());
@@ -106,7 +106,7 @@ namespace osuCrypto
 
 
 		gTimer.setTimePoint("Init.recv.baseStart");
-		// since we are doing mmlicious PSI, we need OTs going in both directions. 
+		// since we are doing mmlicious PSI, we need OTs going in both directions.
 		// This will hold the send OTs
 
 		if (otRecv.hasBaseOts() == false ||
@@ -397,7 +397,7 @@ namespace osuCrypto
 #endif
 
 #if 1
-#pragma region compute Send Bark-OPRF				
+#pragma region compute Send Bark-OPRF
 				//####################
 				//#######Sender role
 				//####################
@@ -449,7 +449,7 @@ namespace osuCrypto
 
 								//	std::cout << bin.mValOPRF[IdxP][0];
 
-								//diff max bin size for first mSimpleBins.mBinCount and 
+								//diff max bin size for first mSimpleBins.mBinCount and
 								// mSimpleBins.mBinStashCount
 								if (bIdx < bins.mSimpleBins.mBinCount[0])
 									bin.mBits[IdxP].init(/*bin.mIdx.size(),*/ bins.mSimpleBins.mNumBits[0]);
@@ -558,7 +558,7 @@ namespace osuCrypto
 #endif
 
 #if 1
-#pragma region compute Send Bark-OPRF				
+#pragma region compute Send Bark-OPRF
 				//####################
 				//#######Sender role
 				//####################
@@ -701,7 +701,7 @@ namespace osuCrypto
 #endif
 
 #if 1
-#pragma region compute Send Bark-OPRF				
+#pragma region compute Send Bark-OPRF
 				//####################
 				//#######Sender role
 				//####################
@@ -777,7 +777,7 @@ namespace osuCrypto
 
 		//u64 maskSize = sizeof(block);// roundUpTo(mStatSecParam + 2 * std::log(mN) - 1, 8) / 8;
 		//u64 numBitLoc = bins.mSimpleBins.mNumBits[1];
-		
+
 
 
 		std::vector<std::thread>  thrds(chls.size());
@@ -874,10 +874,12 @@ namespace osuCrypto
 								//Log::out << "theirMask: " << theirMask << " " << Log::endl;
 
 
-								plaintexts[inputIdx] = myMask^theirMask;
+								plaintexts[bIdx] = myMask^theirMask;
 
 
 								//}
+							} else {
+								plaintexts[bIdx] = mPrng.get<block>();
 							}
 						}
 					}
@@ -892,11 +894,9 @@ namespace osuCrypto
 			thrd.join();
 
 		// check that the number of inputs is as expected.
+		/*
 		if (plaintexts.size() != mN)
-			throw std::runtime_error(LOCATION);
-
-
-
+			throw std::runtime_error(LOCATION);*/
 	}
 
 	void  OPPRFReceiver::recvSSPolyBased(u64 IdxP, binSet& bins, std::vector<block>& plaintexts, const std::vector<Channel*>& chls)
@@ -1151,7 +1151,7 @@ namespace osuCrypto
 		//our BF: y-oprf(x)=\xor hashBF_i(x)
 		//each x has 5 diffirent values oprf1(x),...,oprf5(x)
 		//our BF is an array of sized 40*|X|*ln(2)
-		//each array has 5*bins.mMaskSize 
+		//each array has 5*bins.mMaskSize
 		//which presented as y-oprf1(x)||y-oprf2(x)||...||y-oprf5(x)
 
 		mBfSize = mNumBFhashs * mN * std::log2(std::exp(1.0));
@@ -1274,9 +1274,9 @@ namespace osuCrypto
 			throw std::runtime_error(LOCATION);
 
 
-		
+
 		std::vector<std::thread>  thrds(chls.size());
-		// std::vector<std::thread>  thrds(1);        
+		// std::vector<std::thread>  thrds(1);
 
 		std::mutex mtx;
 
@@ -1489,7 +1489,7 @@ namespace osuCrypto
 			throw std::runtime_error(LOCATION);
 
 		std::vector<std::thread>  thrds(chls.size());
-		// std::vector<std::thread>  thrds(1);        
+		// std::vector<std::thread>  thrds(1);
 
 
 
@@ -1642,7 +1642,7 @@ namespace osuCrypto
 			throw std::runtime_error("masked are stored in blocks, so they can exceed that size");
 
 		std::vector<std::thread>  thrds(chls.size());
-		// std::vector<std::thread>  thrds(1);        
+		// std::vector<std::thread>  thrds(1);
 
 		u32 numHashes = bins.mSimpleBins.mNumHashes[0] + bins.mSimpleBins.mNumHashes[1];
 
@@ -1675,7 +1675,7 @@ namespace osuCrypto
 				//2 type of bins: normal bin in inital step + stash bin
 				//auto binCountSend = bins.mSimpleBins.mBinCount[bIdxType];
 
-				u64 idxStart, idxEnd; //by mXset 
+				u64 idxStart, idxEnd; //by mXset
 
 				idxStart = tIdx       * mN / thrds.size();
 				idxEnd = (tIdx + 1) * mN / thrds.size();
@@ -1762,7 +1762,7 @@ namespace osuCrypto
 			base_poly.getBlkCoefficients(vec_GF2E_X[hIdx], vec_GF2E_Y[hIdx], coeffs[hIdx]);
 			//std::cout << "getBlkCoefficients " << hIdx << "end \n";
 		}
-		//	std::cout << "coeffs.size()" << coeffs.size() << "\n";		
+		//	std::cout << "coeffs.size()" << coeffs.size() << "\n";
 		//	std::cout << "totalMask: " << totalMask << "\n";
 
 
@@ -1806,7 +1806,7 @@ namespace osuCrypto
 		//our BF: y-oprf(x)=\xor hashBF_i(x)
 		//each x has 5 diffirent values oprf1(x),...,oprf5(x)
 		//our BF is an array of sized 40*|X|*ln(2)
-		//each array has 5*bins.mMaskSize 
+		//each array has 5*bins.mMaskSize
 		//which presented as y-oprf1(x)||y-oprf2(x)||...||y-oprf5(x)
 
 		mBfSize = mNumBFhashs * mN * std::log2(std::exp(1.0));
@@ -1818,7 +1818,7 @@ namespace osuCrypto
 			throw std::runtime_error("masked are stored in blocks, so they can exceed that size");
 
 		std::vector<std::thread>  thrds(chls.size());
-		// std::vector<std::thread>  thrds(1);        
+		// std::vector<std::thread>  thrds(1);
 
 
 		uPtr<Buff> sendMaskBuff(new Buff);

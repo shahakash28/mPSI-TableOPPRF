@@ -192,6 +192,7 @@ template <class FieldType> void MPSI_Party<FieldType>::readMPSIInputs() {
 
 //read num_bins MPSI inputs
 template <class FieldType> void MPSI_Party<FieldType>::readMPSIInputs(vector<uint64_t>& bins, uint64_t nbins) {
+	  std::vector<std::uint64_t> circin(nbins);
   	uint64_t input;
     	uint64_t i = 0;
 	uint64_t j = 0;
