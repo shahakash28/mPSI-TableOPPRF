@@ -1546,7 +1546,13 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		auto start = timer.setTimePoint("start");
 
 		if (myIdx != leaderIdx) {//generate share of zero for leader myIDx!=n-1		
-			for (u64 idxP = 0; idxP < ttParties; ++idxP)
+			recvPayLoads.resize(0);
+			sendPayLoads[ttParties].resize(setSize);
+			for (u64 i = 0; i < setSize; ++i)
+			{
+				sendPayLoads[ttParties][i] = prng.get<block>();
+			}
+			/*for (u64 idxP = 0; idxP < ttParties; ++idxP)
 			{
 				sendPayLoads[idxP].resize(setSize);
 				for (u64 i = 0; i < setSize; ++i)
@@ -1568,7 +1574,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			for (u64 idxP = 0; idxP < recvPayLoads.size(); ++idxP)
 			{
 				recvPayLoads[idxP].resize(setSize);
-			}
+			}*/
 
 		}
 		else
@@ -1594,9 +1600,11 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		//### Base OT
 		//##########################
 
+		pThrds.resize(1);
+
 		if (myIdx != leaderIdx)
 		{
-			for (u64 pIdx = 0; pIdx < tSS; ++pIdx)
+			/*for (u64 pIdx = 0; pIdx < tSS; ++pIdx)
 			{
 				u64 prevIdx = (myIdx - pIdx - 1 + nSS) % nSS;
 
@@ -1643,11 +1651,11 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 						}
 						else if (myIdx > nextIdx) //by index
 						{
-							/*						chls[nextIdx][0]->recv(&revDummy[nextIdx], 1);
+							//						chls[nextIdx][0]->recv(&revDummy[nextIdx], 1);
 
-							std::cout << IoStream::lock;
-							std::cout << myIdx << "| d: " << "| thr[" << pIdx << "]:" << myIdx << " <<-> " << nextIdx << ": " << static_cast<int16_t>(revDummy[nextIdx]) << "\n";
-							std::cout << IoStream::unlock;*/
+							//std::cout << IoStream::lock;
+							//std::cout << myIdx << "| d: " << "| thr[" << pIdx << "]:" << myIdx << " <<-> " << nextIdx << ": " << static_cast<int16_t>(revDummy[nextIdx]) << "\n";
+							//std::cout << IoStream::unlock;
 
 							recv[nextIdx].init(opt, nParties, setSize, psiSecParam, bitSize, chls[nextIdx], otCountRecv, otRecv[nextIdx], otSend[nextIdx], ZeroBlock, true);
 						}
@@ -1665,7 +1673,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 						send[nextIdx].init(opt, nParties, setSize, psiSecParam, bitSize, chls[nextIdx], otCountSend, otSend[nextIdx], otRecv[nextIdx], prng.get<block>(), false);
 					});
 				}
-			}
+			}*/
 
 			//last thread for connecting with leader
 			u64 tLeaderIdx = pThrds.size() - 1;
@@ -1683,7 +1691,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		}
 		else
 		{ //leader party 
-
+			pThrds.resize(nParties - 1);
 			for (u64 pIdx = 0; pIdx < nSS; ++pIdx)
 			{
 				pThrds[pIdx] = std::thread([&, pIdx]() {
@@ -1771,7 +1779,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		//##########################
 
 		pThrds.clear();
-		pThrds.resize(num_threads);
+		//pThrds.resize(num_threads);
+		pThrds.resize(1);
 		if (myIdx == leaderIdx)
 		{
 			pThrds.resize(nParties - 1);
@@ -1779,7 +1788,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 
 		if (myIdx != leaderIdx)
 		{
-			for (u64 pIdx = 0; pIdx < tSS; ++pIdx)
+			/*for (u64 pIdx = 0; pIdx < tSS; ++pIdx)
 			{
 				u64 prevIdx = (myIdx - pIdx - 1 + nSS) % nSS;
 
@@ -1823,7 +1832,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 						send[nextIdx].getOPRFkeys(nextIdx, bins, chls[nextIdx], false);
 					});
 				}
-			}
+			}*/
 
 			//last thread for connecting with leader
 			pThrds[pThrds.size() - 1] = std::thread([&, leaderIdx]() {
@@ -1881,7 +1890,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		//##########################
 
 		pThrds.clear();
-
+/*
 		if (myIdx != leaderIdx)
 		{
 			pThrds.resize(num_threads);
@@ -1943,7 +1952,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			for (u64 pIdx = 0; pIdx < pThrds.size(); ++pIdx)
 				pThrds[pIdx].join();
 		}
-
+*/
 		auto getSsClientsDone = timer.setTimePoint("secretsharingClientDone");
 
 
@@ -2006,14 +2015,14 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		if (myIdx != leaderIdx)
 		{
 
-			for (u64 i = 0; i < setSize; ++i)
+			/*for (u64 i = 0; i < setSize; ++i)
 			{
 				//xor all received share
 				for (u64 idxP = 0; idxP < ttParties; ++idxP)
 				{
 					sendPayLoads[ttParties][i] = sendPayLoads[ttParties][i] ^ recvPayLoads[idxP][i];
 				}
-			}
+			}*/
 			//send to leader
 			send[leaderIdx].sendSSTableBased(leaderIdx, bins, sendPayLoads[ttParties], chls[leaderIdx]);
 		}
@@ -2041,7 +2050,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		//##########################
 
 		std::vector<u64> mIntersection;
-		if (myIdx == leaderIdx) {
+/*		if (myIdx == leaderIdx) {
 
 			//u64 maskSize = roundUpTo(psiSecParam + 2 * std::log2(setSize) - 1, 8) / 8;
 
@@ -2062,6 +2071,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			}
 
 		}
+*/
 		auto getIntersection = timer.setTimePoint("getIntersection");
 
 		std::cout << IoStream::lock;
