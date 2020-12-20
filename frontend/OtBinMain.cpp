@@ -3,6 +3,8 @@
 #include "OPPRF/OPPRFReceiver.h"
 #include "OPPRF/OPPRFSender.h"
 
+#include "../MPCHonestMajority/MPSI_Party.h"
+
 #include <fstream>
 using namespace osuCrypto;
 #include "util.h"
@@ -1367,14 +1369,15 @@ bool is_in_dual_area(u64 startIdx, u64 endIdx, u64 numIdx, u64 checkIdx) {
 	return res;
 }
 
-//leader is n-1
+//leader is 0
 void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 {
 	u64 opt = 0;
 	std::fstream runtime;
-	u64 leaderIdx = nParties - 1; //leader party
+	//u64 leaderIdx = nParties - 1; //leader party
+	u64 leaderIdx = 0;
 
-	if (myIdx == 0)
+	if (myIdx != leaderIdx)
 		runtime.open("./runtime_client.txt", runtime.app | runtime.out);
 
 	if (myIdx == leaderIdx)
@@ -1388,6 +1391,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		ttParties = tParties - 1;
 	else if (tParties < 1) //make sure to do ss with at least one client
 		ttParties = 1;
+
+	ttParties = 0; //for leader = 0
 
 	u64 nSS = nParties - 1; //n-2 parties joinly operated secrete sharing
 	int tSS = ttParties; //ss with t next  parties, and last for leader => t+1  
@@ -1547,6 +1552,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 
 		if (myIdx != leaderIdx) {//generate share of zero for leader myIDx!=n-1		
 			recvPayLoads.resize(0);
+			sendPayLoads.resize(1);
 			sendPayLoads[ttParties].resize(setSize);
 			for (u64 i = 0; i < setSize; ++i)
 			{
@@ -1581,7 +1587,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		{
 			//leader: dont send; only receive ss from clients
 			sendPayLoads.resize(0);//
-			recvPayLoads.resize(nParties - 1);
+			recvPayLoads.resize(nParties);
 			for (u64 idxP = 0; idxP < recvPayLoads.size(); ++idxP)
 			{
 				recvPayLoads[idxP].resize(setSize);
@@ -1691,16 +1697,16 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		}
 		else
 		{ //leader party 
-			pThrds.resize(nParties - 1);
-			for (u64 pIdx = 0; pIdx < nSS; ++pIdx)
+			pThrds.resize(nParties);
+			for (u64 pIdx = 0; pIdx < nParties; ++pIdx)
 			{
 				pThrds[pIdx] = std::thread([&, pIdx]() {
 					/*				chls[pIdx][0]->recv(&revDummy[pIdx], 1);
 					std::cout << IoStream::lock;
 					std::cout << myIdx << "| : " << "| thr[" << pIdx << "]:" << pIdx << " --> " << myIdx << ": " << static_cast<int16_t>(revDummy[pIdx]) << "\n";
 					std::cout << IoStream::unlock;*/
-
-					recv[pIdx].init(opt, nParties, setSize, psiSecParam, bitSize, chls[pIdx], otCountRecv, otRecv[pIdx], otSend[pIdx], ZeroBlock, false);
+					if (pIdx != leaderIdx)
+						recv[pIdx].init(opt, nParties, setSize, psiSecParam, bitSize, chls[pIdx], otCountRecv, otRecv[pIdx], otSend[pIdx], ZeroBlock, false);
 				});
 
 			}
@@ -1783,7 +1789,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		pThrds.resize(1);
 		if (myIdx == leaderIdx)
 		{
-			pThrds.resize(nParties - 1);
+			pThrds.resize(nParties);
 		}
 
 		if (myIdx != leaderIdx)
@@ -1842,10 +1848,11 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		}
 		else
 		{ //leader party 
-			for (u64 pIdx = 0; pIdx < nSS; ++pIdx)
+			for (u64 pIdx = 0; pIdx < nParties; ++pIdx)
 			{
 				pThrds[pIdx] = std::thread([&, pIdx]() {
-					recv[pIdx].getOPRFkeys(pIdx, bins, chls[pIdx], false);
+					if (pIdx != myIdx)
+						recv[pIdx].getOPRFkeys(pIdx, bins, chls[pIdx], false);
 
 				});
 			}
@@ -2028,11 +2035,12 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 		}
 		else
 		{
-			pThrds.resize(nParties - 1);
+			pThrds.resize(nParties);
 
 			for (u64 pIdx = 0; pIdx < pThrds.size(); ++pIdx) {
 				pThrds[pIdx] = std::thread([&, pIdx]() {
-					recv[pIdx].recvSSTableBased(pIdx, bins, recvPayLoads[pIdx], chls[pIdx]);
+					if(pIdx != myIdx)
+						recv[pIdx].recvSSTableBased(pIdx, bins, recvPayLoads[pIdx], chls[pIdx]);
 				});
 			}
 
@@ -2043,11 +2051,102 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 
 		auto getSSLeaderDone = timer.setTimePoint("leaderGetXorDone");
 
-			
+		//##########################
+		//### offline phasing - convert to circuit inputs
+		//##########################
+		
+		std::uint64_t nbins = setSize;
+		std::vector<std::uint64_t> circin(nbins);
+
+		if (myIdx != leaderIdx) {
+			for(u64 i = 0; i < nbins; ++i) {
+				memcpy(&circin[i], &sendPayLoads[ttParties][i], sizeof(std::uint64_t));
+			}
+		}
+		else {
+			std::vector<std::vector<std::uint64_t>> sub_bins(nParties - 1);
+			sub_bins[0].resize(nbins);
+			for (u64 pIdx = 1; pIdx < nParties; ++pIdx) {
+				if (pIdx != myIdx) {
+					for(u64 i = 0; i < nbins; ++i) {
+						memcpy(&sub_bins[pIdx][i], &recvPayLoads[pIdx][i], sizeof(std::uint64_t));
+					}
+				}
+			}
+
+		
+			TemplateField<ZpMersenneLongElement> *field;
+    			std::vector<ZpMersenneLongElement> field_bins;
+    			for (u64 i = 0; i < nbins; i++) {
+      				field_bins.push_back(field->GetElement(sub_bins[0][i]));
+    			}
+
+    			for(u64 pIdx = 1; pIdx < nParties - 1; ++pIdx) {
+				for (u64 i = 0; i < nbins; ++i) {
+					field_bins[i] = field_bins[i] + field->GetElement(sub_bins[pIdx][i]);
+				}
+			}
+
+			for (u64 pIdx = 0; pIdx < nParties - 1; ++pIdx) {
+				for (u64 i = 0; i < nbins; ++i) {
+					circin[i] = field_bins[i].elem;
+				}
+			}
+		}
+/*
+		//##########################
+		//### offline phasing - initialize circuit object
+		//##########################
+		int argc = 25;
+		char **argv;
+		argv = (char **) malloc(sizeof(char*) * argc);
+		for(int i = 0; i < argc; ++i) {
+			argv[i] = (char *) malloc(sizeof(char) * 50);
+		}
+
+		std::string infile = "inputs.txt";
+		std::string outfile = "outputs.txt";
+		std::string ftype = "ZpMersenne61";
+		std::string mtype = "HIM";
+		std::string rtype = "HIM";
+		std::string vtype = "Single";
+		std::string pfile = "Parties.txt";		
+		std::string cfile = "ic.txt";
+
+		argv[0] = "./build/MPCHonestMajority";
+		argv[1] = "-partyID";
+		sprintf(argv[2], "%lu", myIdx);
+		argv[3] = "-partiesNumber";
+		sprintf(argv[4], "%llu", nParties);
+		argv[5] = "-numBins";
+		sprintf(argv[6], "%llu", nbins);
+		argv[7] = "inputsFile";
+		strcpy(argv[8], infile.c_str());
+		argv[9] = "-outputsFile";
+		strcpy(argv[10], outfile.c_str());
+		argv[11] = "-circuitFile";
+		strcpy(argv[12], cfile.c_str());
+		argv[13] = "-fieldType";
+		strcpy(argv[14], ftype.c_str());
+		argv[15] = "-genRandomSharesType";
+		strcpy(argv[16], rtype.c_str());
+		argv[17] = "-multType";
+		strcpy(argv[18], mtype.c_str());
+		argv[19] = "-verifyType";
+		strcpy(argv[20], vtype.c_str());
+		argv[21] = "-partiesFile";
+		strcpy(argv[22], pfile.c_str());
+		argv[23] = "-internalIterationsNumber";
+		argv[24] = "1";
+
+		MPSI_Party<ZpMersenneLongElement> mpsi(argc, argv, circin, nbins);
+*/
 
 		//##########################
 		//### online phasing - compute intersection
 		//##########################
+
+		
 
 		std::vector<u64> mIntersection;
 /*		if (myIdx == leaderIdx) {
