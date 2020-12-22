@@ -1192,7 +1192,7 @@ void ProtocolParty<FieldType>::generateRandomShares(uint64_t numOfRandoms, vecto
     }
 
     uint64_t sendSize = N * no_buckets * fieldByteSize;
-    cout << "Every party sends: " << sendSize << " bytes in total." << std::endl;
+    //cout << "Every party sends: " << sendSize << " bytes in total." << std::endl;
 
     roundFunctionSync(sendBufsBytes, recBufsBytes,4);
 
@@ -1314,7 +1314,7 @@ void ProtocolParty<FieldType>::generateRandom2TAndTShares(uint64_t numOfRandomPa
 
     int fieldByteSize = field->getElementSizeInBytes();
     uint64_t sendSize = N * no_buckets * fieldByteSize * 2;
-    cout << "Each party sends a total of: " << sendSize << " for T and 2T shares." << std::endl;
+    //cout << "Each party sends a total of: " << sendSize << " for T and 2T shares." << std::endl;
     for(int i=0; i < N; i++)
     {
         for(int j=0; j<sendBufsElements[i].size();j++) {

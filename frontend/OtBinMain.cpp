@@ -2003,7 +2003,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 				pThrds[pIdx].join();
 		}
 */
-		auto getSsClientsDone = timer.setTimePoint("secretsharingClientDone");
+//		auto getSsClientsDone = timer.setTimePoint("secretsharingClientDone");
 
 
 #ifdef PRINT
@@ -2091,7 +2091,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 				pThrds[pIdx].join();
 		}
 
-		auto getSSLeaderDone = timer.setTimePoint("leaderGetXorDone");
+		auto getOPPRFHint = timer.setTimePoint("leaderGetXorDone");
 
 		//##########################
 		//### offline phasing - convert to circuit inputs
@@ -2160,7 +2160,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 
 
 
-		std::vector<u64> mIntersection;
+//		std::vector<u64> mIntersection;
 /*		if (myIdx == leaderIdx) {
 
 			//u64 maskSize = roundUpTo(psiSecParam + 2 * std::log2(setSize) - 1, 8) / 8;
@@ -2183,19 +2183,19 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 
 		}
 */
-		auto getIntersection = timer.setTimePoint("getIntersection");
+		auto getCircuit = timer.setTimePoint("getCircuit");
 
 		std::cout << IoStream::lock;
 
-		if (myIdx == 0 || myIdx == 1 || myIdx == leaderIdx) {
+		//if (myIdx == 0 || myIdx == 1 || myIdx == leaderIdx) {
 			auto offlineTime = std::chrono::duration_cast<std::chrono::milliseconds>(initDone - start).count();
 			auto hashingTime = std::chrono::duration_cast<std::chrono::milliseconds>(hashingDone - initDone).count();
 			auto getOPRFTime = std::chrono::duration_cast<std::chrono::milliseconds>(getOPRFDone - hashingDone).count();
-			auto ssClientTime = std::chrono::duration_cast<std::chrono::milliseconds>(getSsClientsDone - getOPRFDone).count();
-			auto ssServerTime = std::chrono::duration_cast<std::chrono::milliseconds>(getSSLeaderDone - getSsClientsDone).count();
-			auto intersectionTime = std::chrono::duration_cast<std::chrono::milliseconds>(getIntersection - getSSLeaderDone).count();
+			//auto ssClientTime = std::chrono::duration_cast<std::chrono::milliseconds>(getSsClientsDone - getOPRFDone).count();
+			auto ssServerTime = std::chrono::duration_cast<std::chrono::milliseconds>(getOPPRFHint - getOPRFDone).count();
+			auto intersectionTime = std::chrono::duration_cast<std::chrono::milliseconds>(getCircuit - getOPPRFHint).count();
 
-			double onlineTime = hashingTime + getOPRFTime + ssClientTime + ssServerTime + intersectionTime;
+			double onlineTime = hashingTime + getOPRFTime + ssServerTime + intersectionTime;
 
 			double time = offlineTime + onlineTime;
 			time /= 1000;
@@ -2231,7 +2231,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 				}
 			}
 
-			if (myIdx == 0 || myIdx == 1)
+			if (myIdx != leaderIdx)
 			{
 				std::cout << "Client Idx: " << myIdx << "\n";
 			}
@@ -2241,16 +2241,16 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			}
 
 			if (myIdx == leaderIdx) {
-				Log::out << "#Output Intersection: " << mIntersection.size() << Log::endl;
+				//Log::out << "#Output Intersection: " << mIntersection.size() << Log::endl;
 				Log::out << "#Expected Intersection: " << expected_intersection << Log::endl;
-				num_intersection = mIntersection.size();
+				//num_intersection = mIntersection.size();
 			}
 
 			std::cout << "setSize: " << setSize << "\n"
 				<< "offlineTime:  " << offlineTime << " ms\n"
 				<< "hashingTime:  " << hashingTime << " ms\n"
 				<< "getOPRFTime:  " << getOPRFTime << " ms\n"
-				<< "ss2DirTime:  " << ssClientTime << " ms\n"
+				//<< "ss2DirTime:  " << ssClientTime << " ms\n"
 				<< "ssRoundTime:  " << ssServerTime << " ms\n"
 				<< "intersection:  " << intersectionTime << " ms\n"
 				<< "onlineTime:  " << onlineTime << " ms\n"
@@ -2266,17 +2266,17 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			offlineAvgTime += offlineTime;
 			hashingAvgTime += hashingTime;
 			getOPRFAvgTime += getOPRFTime;
-			ss2DirAvgTime += ssClientTime;
+			//ss2DirAvgTime += ssClientTime;
 			ssRoundAvgTime += ssServerTime;
 			intersectionAvgTime += intersectionTime;
 			onlineAvgTime += onlineTime;
 
-		}
+		
 		std::cout << IoStream::unlock;
 	}
 
 	std::cout << IoStream::lock;
-	if (myIdx == 0 || myIdx == leaderIdx) {
+	//if (myIdx == 0 || myIdx == leaderIdx) {
 		double avgTime = (offlineAvgTime + onlineAvgTime);
 		avgTime /= 1000;
 
@@ -2287,7 +2287,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			<< "  setSize: " << setSize
 			<< "  nTrials:" << nTrials << "\n";
 
-		if (myIdx == 0)
+		if (myIdx != leaderIdx)
 		{
 			std::cout << "Client Idx: " << myIdx << "\n";
 			runtime << "Client Idx: " << myIdx << "\n";
@@ -2313,7 +2313,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			<< "offlineTime:  " << offlineAvgTime / nTrials << " ms\n"
 			<< "hashingTime:  " << hashingAvgTime / nTrials << " ms\n"
 			<< "getOPRFTime:  " << getOPRFAvgTime / nTrials << " ms\n"
-			<< "ssClientTime:  " << ss2DirAvgTime / nTrials << " ms\n"
+			//<< "ssClientTime:  " << ss2DirAvgTime / nTrials << " ms\n"
 			<< "ssLeaderTime:  " << ssRoundAvgTime / nTrials << " ms\n"
 			<< "intersection:  " << intersectionAvgTime / nTrials << " ms\n"
 			<< "onlineTime:  " << onlineAvgTime / nTrials << " ms\n"
@@ -2336,7 +2336,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 			//<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
 			<< "------------------\n";
 		runtime.close();
-	}
+	
 	std::cout << IoStream::unlock;
 
 	/*if (myIdx == 0) {
