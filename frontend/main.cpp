@@ -51,6 +51,8 @@ int main(int argc, char** argv)
 
 	u64 roundOPPRF;
 
+	char * timingsfile = "runtime.txt";
+
 
 	switch (argc) {
 	case 2: //unit test
@@ -91,8 +93,8 @@ int main(int argc, char** argv)
 			return 0;
 		}
 		break;
-	case 9: //nPSI or optimized 3PSI
-		cout << "9\n";
+	case 11: //nPSI or optimized 3PSI
+		cout << "11\n";
 		if (argv[1][0] == '-' && argv[1][1] == 'n')
 			nParties = atoi(argv[2]);
 		else
@@ -136,7 +138,10 @@ int main(int argc, char** argv)
 			else if (argv[3][1] == 't')
 			{
 				//cout << nParties << " " << tParties << " " << setSize << " " << pIdx << "\n";
-				tparty(pIdx, nParties, tParties, setSize, trials);
+				if (argv[9][0] == '-' && argv[9][1] == 'F') {
+					timingsfile = argv[10];
+				}
+				tparty(pIdx, nParties, tParties, setSize, trials, timingsfile);
 			}
 			else if (argv[3][1] == 'a')
 			{

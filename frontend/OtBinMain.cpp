@@ -1370,7 +1370,7 @@ bool is_in_dual_area(u64 startIdx, u64 endIdx, u64 numIdx, u64 checkIdx) {
 }
 
 //leader is 0
-void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
+void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std::string timingsfile)
 {
 	int argc = 25;
 	char **argv;
@@ -1420,13 +1420,14 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials)
 	std::fstream runtime;
 	//u64 leaderIdx = nParties - 1; //leader party
 	u64 leaderIdx = 0;
-
+/*
 	if (myIdx != leaderIdx)
 		runtime.open("./runtime_client.txt", runtime.app | runtime.out);
 
 	if (myIdx == leaderIdx)
 		runtime.open("./runtime_leader.txt", runtime.app | runtime.out);
-
+*/
+	runtime.open(timingsfile, runtime.app | runtime.out);
 
 #pragma region setup
 
@@ -2970,7 +2971,7 @@ void OPPRFnt_EmptrySet_Test_Main()
 		{
 			pThrds[pIdx] = std::thread([&, pIdx]() {
 				//	Channel_party_test(pIdx);
-				tparty(pIdx, nParties, tParties, setSize, 1);
+				tparty(pIdx, nParties, tParties, setSize, 1, "runtime.txt");
 			});
 		}
 	}
