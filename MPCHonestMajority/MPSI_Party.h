@@ -53,6 +53,7 @@ class MPSI_Party : public ProtocolParty<FieldType>{
 		vector<FieldType> a_vals; //threshold shares of a_j
 		vector<FieldType> mult_outs; //threshold shares of s_j*a_j
 		vector<FieldType> outputs; //the shares of s_j*a_j
+		vector<uint64_t> matches; //the positions where a match is found
 		vector<FieldType> randomTAndAddShares; //shares of r_j for conversion of inputs to T-sharings
 		string myInputFile, myOutputFile;
 
@@ -87,6 +88,8 @@ class MPSI_Party : public ProtocolParty<FieldType>{
 
 		//print output results to file
 		void outputPrint();
+
+		void announceIntersection(vector<uint64_t> values, uint64_t int_size);
 
 		~MPSI_Party() {}
 
@@ -628,7 +631,6 @@ template <class FieldType> void MPSI_Party<FieldType>::evaluateCircuit() {
 
 //print output results
 template <class FieldType> void MPSI_Party<FieldType>::outputPrint() {
-        vector<int> matches;
         uint64_t counter=0;
         uint64_t i;
 
@@ -636,7 +638,7 @@ template <class FieldType> void MPSI_Party<FieldType>::outputPrint() {
                 if(outputs[i] != *(this->field->GetZero())) {
 			continue;
 		}
-                matches.push_back(i);
+                this->matches.push_back(i);
                 counter++;
         }
 	cout << this->m_partyId << ": 0 found at " << matches.size() << " positions. " << endl;

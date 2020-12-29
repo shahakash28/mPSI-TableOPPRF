@@ -2108,10 +2108,10 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 			}
 
 			TemplateField<ZpMersenneLongElement> *field;
-    	std::vector<ZpMersenneLongElement> field_bins;
-    	for (u64 i = 0; i < nbins; i++) {
-      		field_bins.push_back(field->GetElement(temp_bins[i]));
-    	}
+		    	std::vector<ZpMersenneLongElement> field_bins;
+    			for (u64 i = 0; i < nbins; i++) {
+      				field_bins.push_back(field->GetElement(temp_bins[i]));
+    			}
 			for (u64 i = 0; i < nbins; ++i) {
 				circin[i] = field_bins[i].elem;
 			}
@@ -2154,14 +2154,25 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 		mpsi.readMPSIInputs(circin, nbins);
 		mpsi.runMPSI();
 
-
 		//##########################
 		//### online phasing - compute intersection
 		//##########################
 
+		std::vector<block> mIntersection;
 
-
-//		std::vector<u64> mIntersection;
+		if (myIdx == leaderIdx) {
+			std::vector<std::uint64_t> inteles = mpsi.matches;
+			u64 int_size;
+			for(u64 i = 0; i < inteles.size(); i++) {
+				u64 mPos = inteles[i];
+				auto& cbin = bins.mCuckooBins.mBins[mPos];
+				if (!cbin.isEmpty()) {
+					u64 mBinIdx = cbin.idx();
+					mIntersection.push_back(set[mBinIdx]);
+				}
+			}
+			std::cout << "mIntersection: " << mIntersection.size() << std::endl;
+		}
 /*		if (myIdx == leaderIdx) {
 
 			//u64 maskSize = roundUpTo(psiSecParam + 2 * std::log2(setSize) - 1, 8) / 8;
