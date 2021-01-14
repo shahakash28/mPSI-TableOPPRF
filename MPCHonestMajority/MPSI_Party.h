@@ -47,7 +47,7 @@ class MPSI_Party : public ProtocolParty<FieldType>{
 		 */
 
 		uint64_t num_bins; // number of bins
-		uint64_t sent_total; //total number of bytes sent
+		uint64_t sent_bytes, recv_bytes; //total number of bytes sent and received
 		vector<FieldType> masks; //the shares of the masks s_j for each value to be multiplied with
 		vector<FieldType> add_a; //additive shares of a_j
 		vector<FieldType> a_vals; //threshold shares of a_j
@@ -121,9 +121,10 @@ template <class FieldType> MPSI_Party<FieldType>::MPSI_Party(int argc, char* arg
         mult_outs.resize(num_bins);
         outputs.resize(num_bins);
 */
-				sent_total = 0;
-				if(this->m_partyId == 0)
-						cout << this->m_partyId << ": Element size is " << this->field->getElementSizeInBytes() << "." << endl;
+	sent_bytes = 0;
+	recv_bytes = 0;
+	if(this->m_partyId == 0)
+		cout << this->m_partyId << ": Element size is " << this->field->getElementSizeInBytes() << "." << endl;
 
         //cout << this->m_partyId << ": Constructor done." << endl;
 
@@ -152,7 +153,8 @@ template <class FieldType> MPSI_Party<FieldType>::MPSI_Party(int argc, char* arg
         mult_outs.resize(num_bins);
         outputs.resize(num_bins);
 */
-	sent_total = 0;
+	sent_bytes = 0;
+	recv_bytes = 0;
 
 	if(this->m_partyId == 0)
 		cout << this->m_partyId << ": Element size is " << this->field->getElementSizeInBytes() << "." << endl;
@@ -283,10 +285,14 @@ template <class FieldType> void MPSI_Party<FieldType>::runMPSI() {
 	auto dur4 = duration_cast<milliseconds>(t8-t7).count();
 	//cout << this->m_partyId << ": T- and 2T-sharings generated in " << dur4 << " milliseconds." << endl;
 
-	this->sent_total = (this->sent_total * 5) / 2;
-
         //Evaluate the circuit
         evaluateCircuit();
+
+	for(int i = 0; i < this->parties.size(); i++) {
+		this->sent_bytes += this->parties[i].get()->getChannel().get()->bytesOut;
+		this->recv_bytes += this->parties[i].get()->getChannel().get()->bytesIn;
+	}
+	cout << this->m_partyId << ": " << this->sent_bytes << " bytes sent and " << this->recv_bytes << " bytes received." << endl;
 }
 
 //prepare additive and T-threshold sharings of secret random value r_j using DN07's protocol
@@ -318,11 +324,6 @@ template <class FieldType> void MPSI_Party<FieldType>::modDoubleRandom(uint64_t 
                 sendBufsBytes[i].resize(no_buckets*fieldByteSize*2);
                 recBufsBytes[i].resize(no_buckets*fieldByteSize*2);
         }
-
-	uint64_t sendSize = N * no_buckets * fieldByteSize * 2;
-	//cout << this->m_partyId << ": no_random: " << no_random << " no_buckets: " << no_buckets << " N: " << N << " T: " << T << endl;
-	//cout << this->m_partyId << ": modDoubleRandom() sends: " << sendSize << " bytes." << endl;
-	this->sent_total += sendSize;
 
         /**
          *  generate random sharings.
@@ -432,7 +433,6 @@ template <class FieldType> void MPSI_Party<FieldType>::addShareOpen(uint64_t num
 
 	else {//since I am not party 1 parties[0]->getID()=1
 		//cout << this->m_partyId << ": In addShareOpen(), " << aPlusRSharesBytes.size() << " bytes sent." << endl;
-		this->sent_total = this->sent_total + aPlusRSharesBytes.size();
 		//send the shares to p1
 		this->parties[0]->getChannel()->write(aPlusRSharesBytes.data(), aPlusRSharesBytes.size());
     	}
@@ -513,9 +513,6 @@ template <class FieldType> void MPSI_Party<FieldType>::reshare(vector<FieldType>
 			}
 			//cout << sendBufsElements[i].size() << " " << sendBufsBytes[i].size() << " " << recBufsBytes[i].size();
 		}
-		uint64_t sendSize = N * no_vals * fieldByteSize;
-		//cout << this->m_partyId << ": In reshare(), a total of: " << sendSize << "bytes sent." << endl;
-		this->sent_total = this->sent_total + sendSize;
 	}
 	else {
 		for (int i=0; i<N; i++) {
@@ -596,12 +593,9 @@ template <class FieldType> void MPSI_Party<FieldType>::mult_sj() {
 			recBufsBytes[i].resize(this->num_bins * fieldByteSize);
 		}
 		this->roundFunctionSyncForP1(multbytes, recBufsBytes);
-
-		this->sent_total = this->sent_total + ((this->N - 1) * (this->masks.size() * this->field->getElementSizeInBytes()));
 	}
 	else {
 		this->parties[0]->getChannel()->write(multbytes.data(), multbytes.size());
-		this->sent_total = this->sent_total + (2 * this->num_bins * this->field->getElementSizeInBytes());
 	}
 
 	if(this->m_partyId == 0) {
@@ -631,7 +625,7 @@ template <class FieldType> void MPSI_Party<FieldType>::evaluateCircuit() {
 
 //print output results
 template <class FieldType> void MPSI_Party<FieldType>::outputPrint() {
-        uint64_t counter=0;
+        uint64_t counter = 0;
         uint64_t i;
 
         for(i=0; i < this->num_bins; i++) {
@@ -642,7 +636,6 @@ template <class FieldType> void MPSI_Party<FieldType>::outputPrint() {
                 counter++;
         }
 	cout << this->m_partyId << ": 0 found at " << matches.size() << " positions. " << endl;
-	cout << this->sent_total << " bytes sent." << endl;
 /*
         for(i=0; i < counter; i++) {
                 cout << matches[i] << " " << outputs[i] << "\n";

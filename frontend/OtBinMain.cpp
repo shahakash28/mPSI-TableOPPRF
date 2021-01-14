@@ -2229,6 +2229,9 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 				}
 			}
 
+			dataSent += mpsi.sent_bytes;
+			dataRecv += mpsi.recv_bytes;
+
 			Mbps = dataSent * 8 / time / (1 << 20);
 			MbpsRecv = dataRecv * 8 / time / (1 << 20);
 
@@ -2253,9 +2256,9 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 			}
 
 			if (myIdx == leaderIdx) {
-				//Log::out << "#Output Intersection: " << mIntersection.size() << Log::endl;
+				Log::out << "#Output Intersection: " << mIntersection.size() << Log::endl;
 				Log::out << "#Expected Intersection: " << expected_intersection << Log::endl;
-				//num_intersection = mIntersection.size();
+				num_intersection = mIntersection.size();
 			}
 
 			std::cout << "setSize: " << setSize << "\n"
@@ -2268,8 +2271,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 				<< "onlineTime:  " << onlineTime << " ms\n"
 				//<< "Bandwidth: Send: " << Mbps << " Mbps,\t Recv: " << MbpsRecv << " Mbps\n"
 				<< "Total time: " << time << " s\n"
-				//<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
-				//<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
+				<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
+				<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
 				<< "------------------\n";
 
 
@@ -2331,8 +2334,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 			<< "onlineTime:  " << onlineAvgTime / nTrials << " ms\n"
 			//<< "Bandwidth: Send: " << Mbps << " Mbps,\t Recv: " << MbpsRecv << " Mbps\n"
 			<< "Total time: " << avgTime / nTrials << " s\n"
-			//<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
-			//<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
+			<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
+			<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
 			<< "------------------\n";
 
 		runtime << "offlineTime:  " << offlineAvgTime / nTrials << " ms\n"
@@ -2344,8 +2347,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 			<< "onlineTime:  " << onlineAvgTime / nTrials << " ms\n"
 			//<< "Bandwidth: Send: " << Mbps << " Mbps,\t Recv: " << MbpsRecv << " Mbps\n"
 			<< "Total time: " << avgTime / nTrials << " s\n"
-			//<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
-			//<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
+			<< "Total Comm: Send:" << (dataSent / std::pow(2.0, 20)) << " MB"
+			<< "\t Recv: " << (dataRecv / std::pow(2.0, 20)) << " MB\n"
 			<< "------------------\n";
 		runtime.close();
 	
