@@ -775,7 +775,7 @@ void ProtocolParty<FieldType>::inputPhase()
 {
 
 
-    int robin = 0;
+    //int robin = 0;
 
     // the number of random double sharings we need altogether
     vector<FieldType> x1(N),y1(N);
@@ -784,7 +784,7 @@ void ProtocolParty<FieldType>::inputPhase()
     vector<vector<byte>> recBufBytes(N);
     vector<vector<FieldType>> recBufElements(N);
 
-    int input;
+    //int input;
     int index = 0;
     vector<int> sizes(N);
 
@@ -833,7 +833,7 @@ void ProtocolParty<FieldType>::inputPhase()
         sendBufsBytes[i].resize(sendBufsElements[i].size()*fieldByteSize);
         //cout<< "size of sendBufs1Elements["<<i<<" ].size() is " << sendBufs1Elements[i].size() <<"myID =" <<  m_partyId<<endl;
         recBufBytes[i].resize(sizes[i]*fieldByteSize);
-        for(int j=0; j<sendBufsElements[i].size();j++) {
+        for(uint64_t j=0; j<sendBufsElements[i].size();j++) {
             field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize), sendBufsElements[i][j]);
         }
     }
@@ -846,7 +846,7 @@ void ProtocolParty<FieldType>::inputPhase()
     for(int i=0; i < N; i++)
     {
         recBufElements[i].resize((recBufBytes[i].size()) / fieldByteSize);
-        for(int j=0; j<recBufElements[i].size();j++) {
+        for(uint64_t j=0; j<recBufElements[i].size();j++) {
             recBufElements[i][j] = field->bytesToElement(recBufBytes[i].data() + ( j * fieldByteSize));
         }
     }
@@ -953,7 +953,7 @@ void ProtocolParty<FieldType>::setupPRSS() {
 
     //generate the relevant number for each subset
     prssSubsetElement.resize(allSubsets.size());
-    for(int i=0; i<allSubsets.size(); i++){
+    for(uint64_t i=0; i<allSubsets.size(); i++){
 
 
         auto currSubset = allSubsets[i];
@@ -1051,7 +1051,7 @@ void ProtocolParty<FieldType>::generateKeysForPRSS() {
 
     for(int i=0; i < m_partyId + 1; i++){
 
-        for(int j=0; j<recBufsBytes[i].size()/16; j++){
+        for(uint64_t j=0; j<recBufsBytes[i].size()/16; j++){
 
             prssKeys[ctr] = ( (__m128i *)recBufsBytes[i].data() )[j];
             ctr++;
@@ -1062,7 +1062,7 @@ void ProtocolParty<FieldType>::generateKeysForPRSS() {
 
     prssPrgs.resize(allSubsets.size());
 
-    for(int i=0; i<prssPrgs.size(); i++){
+    for(uint64_t i=0; i<prssPrgs.size(); i++){
 
         byte * buf = (byte *)(&prssKeys[i]);
         vector<byte> vec;
@@ -1094,7 +1094,7 @@ void ProtocolParty<FieldType>::generateRandomSharesPRSS(int numOfRnadoms, vector
 
         randomElementsToFill[i] = *field->GetZero();
 
-        for(int j=0; j<prssPrgs.size();j++){
+        for(uint64_t j=0; j<prssPrgs.size();j++){
 
             if(fieldSizeBits<-32) {
                 //NOTE: check if getRandom32 is enough
@@ -1119,7 +1119,7 @@ void ProtocolParty<FieldType>::generateRandomShares(uint64_t numOfRandoms, vecto
 
     int index = 0;
     vector<vector<byte>> recBufsBytes(N);
-    int robin = 0;
+    //int robin = 0;
     int no_random = numOfRandoms;
 
     vector<FieldType> x1(N),y1(N), x2(N),y2(N), t1(N), r1(N), t2(N), r2(N);;
@@ -1186,12 +1186,12 @@ void ProtocolParty<FieldType>::generateRandomShares(uint64_t numOfRandoms, vecto
     int fieldByteSize = field->getElementSizeInBytes();
     for(int i=0; i < N; i++)
     {
-        for(int j=0; j<sendBufsElements[i].size();j++) {
+        for(uint64_t j=0; j<sendBufsElements[i].size();j++) {
             field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize), sendBufsElements[i][j]);
         }
     }
 
-    uint64_t sendSize = N * no_buckets * fieldByteSize;
+    //uint64_t sendSize = N * no_buckets * fieldByteSize;
     //cout << "Every party sends: " << sendSize << " bytes in total." << std::endl;
 
     roundFunctionSync(sendBufsBytes, recBufsBytes,4);
@@ -1236,7 +1236,7 @@ void ProtocolParty<FieldType>::generateRandom2TAndTShares(uint64_t numOfRandomPa
 
     int index = 0;
     vector<vector<byte>> recBufsBytes(N);
-    int robin = 0;
+    //int robin = 0;
     int no_random = numOfRandomPairs;
 
     vector<FieldType> x1(N),y1(N), x2(N),y2(N), t1(N), r1(N), t2(N), r2(N);;
@@ -1313,11 +1313,11 @@ void ProtocolParty<FieldType>::generateRandom2TAndTShares(uint64_t numOfRandomPa
     }
 
     int fieldByteSize = field->getElementSizeInBytes();
-    uint64_t sendSize = N * no_buckets * fieldByteSize * 2;
+    //uint64_t sendSize = N * no_buckets * fieldByteSize * 2;
     //cout << "Each party sends a total of: " << sendSize << " for T and 2T shares." << std::endl;
     for(int i=0; i < N; i++)
     {
-        for(int j=0; j<sendBufsElements[i].size();j++) {
+        for(uint64_t j=0; j<sendBufsElements[i].size();j++) {
             field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize), sendBufsElements[i][j]);
         }
     }
@@ -1693,6 +1693,7 @@ int ProtocolParty<FieldType>::processMultiplications(int lastMultGate)
     else if(multType=="DN")
         return processMultDN(lastMultGate);
 
+    return 0;
 
     //return processMultGRR();
 }
@@ -1702,7 +1703,7 @@ template <class FieldType>
 int ProtocolParty<FieldType>::processMultDN(int indexInRandomArray) {
 
     int index = 0;
-    int numOfMultGates = circuit.getNrOfMultiplicationGates();
+    //int numOfMultGates = circuit.getNrOfMultiplicationGates();
     int fieldByteSize = field->getElementSizeInBytes();
     int maxNumberOfLayerMult = circuit.getLayers()[currentCirciutLayer + 1] - circuit.getLayers()[currentCirciutLayer];
     vector<FieldType> xyMinusRShares(maxNumberOfLayerMult);//hold both in the same vector to send in one batch
@@ -1741,7 +1742,7 @@ int ProtocolParty<FieldType>::processMultDN(int indexInRandomArray) {
     xyMinusR.resize(acctualNumOfMultGates);
     xyMinusRBytes.resize(acctualNumOfMultGates*fieldByteSize);
 
-    for(int j=0; j<xyMinusRShares.size();j++) {
+    for(uint64_t j=0; j<xyMinusRShares.size();j++) {
         field->elementToBytes(xyMinusRSharesBytes.data() + (j * fieldByteSize), xyMinusRShares[j]);
     }
 
@@ -1841,7 +1842,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
 
     int index = 0;
     //int numOfMultGates = circuit.getNrOfMultiplicationGates();
-    int numOfMultGates = numOfTrupples;
+    //int numOfMultGates = numOfTrupples;
     int fieldByteSize = field->getElementSizeInBytes();
     vector<FieldType> xyMinusRShares(numOfTrupples);//hold both in the same vector to send in one batch
     vector<byte> xyMinusRSharesBytes(numOfTrupples *fieldByteSize);//hold both in the same vector to send in one batch
@@ -1856,7 +1857,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
 
 
     //generate the shares for x+a and y+b. do it in the same array to send once
-    for (int k = 0; k < numOfTrupples; k++)//go over only the logit gates
+    for (uint64_t k = 0; k < numOfTrupples; k++)//go over only the logit gates
     {
         //compute the share of xy-r
         xyMinusRShares[k] = a[k]*b[k] - randomTAnd2TShares[offset + 2*k+1];
@@ -1868,7 +1869,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
     xyMinusR.resize(numOfTrupples);
     xyMinusRBytes.resize(numOfTrupples*fieldByteSize);
 
-    for(int j=0; j<xyMinusRShares.size();j++) {
+    for(uint64_t j=0; j<xyMinusRShares.size();j++) {
         field->elementToBytes(xyMinusRSharesBytes.data() + (j * fieldByteSize), xyMinusRShares[j]);
     }
 
@@ -1899,7 +1900,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
 
         vector<FieldType> xyMinurAllShares(N), yPlusB(N);
 
-        for (int k = 0;k < numOfTrupples; k++)//go over only the logit gates
+        for (uint64_t k = 0;k < numOfTrupples; k++)//go over only the logit gates
         {
             for (int i = 0; i < N; i++) {
 
@@ -1929,7 +1930,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
     //fill the xPlusAAndYPlusB array for all the parties except for party 1 that already have this array filled
     if (m_partyId != 0) {
 
-        for (int i = 0; i < numOfTrupples; i++) {
+        for (uint64_t i = 0; i < numOfTrupples; i++) {
 
             xyMinusR[i] = field->bytesToElement(xyMinusRBytes.data() + (i * fieldByteSize));
         }
@@ -1939,7 +1940,7 @@ void ProtocolParty<FieldType>::DNHonestMultiplication(vector<FieldType> a, vecto
     index = 0;
 
     //after the xPlusAAndYPlusB array is filled, we are ready to fill the output of the mult gates
-    for (int k = 0; k < numOfTrupples; k++)//go over only the logit gates
+    for (uint64_t k = 0; k < numOfTrupples; k++)//go over only the logit gates
     {
         cToFill[k] = randomTAnd2TShares[offset + 2*k] + xyMinusR[k];
     }
@@ -2008,7 +2009,7 @@ int ProtocolParty<FieldType>::processMultGRR() {
     int fieldByteSize = field->getElementSizeInBytes();
     for(int i=0; i < N; i++)
     {
-        for(int j=0; j<sendBufsElements[i].size();j++) {
+        for(uint64_t j=0; j<sendBufsElements[i].size();j++) {
             field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize), sendBufsElements[i][j]);
         }
     }
@@ -2326,7 +2327,7 @@ void ProtocolParty<FieldType>::verificationPhase() {
       cout << "To open shares, receive shares of size: " << recSize << " bytes." << std::endl;
 
       //set the first sending data buffer
-      for(int j=0; j<numOfRandomShares;j++) {
+      for(uint64_t j=0; j<numOfRandomShares;j++) {
           field->elementToBytes(sendBufsBytes[0].data() + (j * fieldByteSize), Shares[j]);
       }
 
@@ -2341,7 +2342,7 @@ void ProtocolParty<FieldType>::verificationPhase() {
 
       //reconstruct each set of shares to get the secret
 
-      for(int k=0; k<numOfRandomShares; k++){
+      for(uint64_t k=0; k<numOfRandomShares; k++){
 
           //get the set of shares for each element
           for(int i=0; i < N; i++) {
@@ -2526,7 +2527,7 @@ bool ProtocolParty<FieldType>::verificationOfSingleTriples(FieldType *x, FieldTy
 template <class FieldType>
 void ProtocolParty<FieldType>::outputPhase()
 {
-    int count=0;
+    //int count=0;
     vector<FieldType> x1(N); // vector for the shares of my outputs
     vector<vector<FieldType>> sendBufsElements(N);
     vector<vector<byte>> sendBufsBytes(N);
@@ -2551,7 +2552,7 @@ void ProtocolParty<FieldType>::outputPhase()
     {
         sendBufsBytes[i].resize(sendBufsElements[i].size()*fieldByteSize);
         recBufBytes[i].resize(sendBufsElements[m_partyId].size()*fieldByteSize);
-        for(int j=0; j<sendBufsElements[i].size();j++) {
+        for(uint64_t j=0; j<sendBufsElements[i].size();j++) {
             field->elementToBytes(sendBufsBytes[i].data() + (j * fieldByteSize), sendBufsElements[i][j]);
         }
     }
