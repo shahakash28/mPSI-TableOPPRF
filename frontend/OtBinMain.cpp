@@ -1,3 +1,5 @@
+//Modified by Nishka Dasgupta, Akash Shah
+
 #include "Network/BtEndpoint.h"
 
 #include "OPPRF/OPPRFReceiver.h"
@@ -1372,6 +1374,7 @@ bool is_in_dual_area(u64 startIdx, u64 endIdx, u64 numIdx, u64 checkIdx) {
 //leader is 0
 void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std::string timingsfile)
 {
+	//Initialize values
 	int argc = 25;
 	char **argv;
 	argv = (char **) malloc(sizeof(char*) * argc);
@@ -1452,7 +1455,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 	std::string name("psi");
 	BtIOService ios(0);
 
-
+	//Set up channels
 	std::vector<BtEndpoint> ep(nParties);
 
 	for (u64 i = 0; i < nParties; ++i)
@@ -1506,6 +1509,8 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 	for (u64 idxTrial = 0; idxTrial < nTrials; idxTrial++)
 	{
 #pragma region input
+
+		//generate input sets
 		std::vector<block> set(setSize);
 
 		std::vector<std::vector<block>>
