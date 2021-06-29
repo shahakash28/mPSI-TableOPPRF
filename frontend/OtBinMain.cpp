@@ -1414,7 +1414,7 @@ void tparty(u64 myIdx, u64 nParties, u64 tParties, u64 setSize, u64 nTrials, std
 	argv[23] = "-internalIterationsNumber";
 	argv[24] = "1";
 	std::vector<std::uint64_t> circin;
-	MPSI_Party<ZpMersenneLongElement> mpsi(argc, argv, circin, 0);
+	MPSI_Party<ZpMersenneLongElement> mpsi(argc, argv);
 
 	u64 opt = 0;
 	std::fstream runtime;
