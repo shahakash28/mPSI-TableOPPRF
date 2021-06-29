@@ -41,3 +41,13 @@ For example, we securely compute a large arithmetic circuit
 of depth 20 with 1,000,000 multiplication gates, in approximately
 0.5 seconds with three parties, and approximately 29 seconds with
 50 parties, and just under 1 minute with 90 parties.
+
+
+Modified by
+
+Nishka Dasgupta
+Microsoft Research India
+
+
+Akash Shah
+Microsoft Research India
