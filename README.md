@@ -1,5 +1,5 @@
 # Programmable Oblivious PRF & multi-party PSI
-This is a the implementation of our CCS 2021 paper: **Efficient Linear Multiparty PSI and Extensions to Circuit/Quorum PSI** [[ePrint](https://eprint.iacr.org/2021/172)], using table OPPRF as implemented in: [[MultipartyPSI](https://github.com/osu-crypto/MultiPartyPSI)] and arithmetic circuit as implemented in: [[MPCHonestMajority](https://github.com/cryptobiu/MPC-Benchmark/tree/master/MPCHonestMajority)]. The implementation is built almost entirely on the implementation in (https://github.com/osu-crypto/MultiPartyPSI).  
+This is a the implementation of our CCS 2021 paper: **Efficient Linear Multiparty PSI and Extensions to Circuit/Quorum PSI** [[ePrint](https://eprint.iacr.org/2021/172)], using table OPPRF as implemented in: [[MultipartyPSI](https://github.com/osu-crypto/MultiPartyPSI)] and arithmetic circuit as implemented in: [[MPCHonestMajority](https://github.com/cryptobiu/MPC-Benchmark/tree/master/MPCHonestMajority)]. The implementation is built almost entirely on the implementation in [[MultipartyPSI](https://github.com/osu-crypto/MultiPartyPSI)].  
 
 ## Installations
 
