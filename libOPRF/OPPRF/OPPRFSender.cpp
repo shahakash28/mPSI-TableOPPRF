@@ -1117,7 +1117,7 @@ namespace osuCrypto
 								{
 									memcpy(
 										maskView[baseMaskIdx].data() + i* bins.mMaskSize,
-										(u8*)&ZeroBlock,  //make randome
+										(u8*)&ZeroBlock,  //make it random
 										bins.mMaskSize);
 								}
 							}
