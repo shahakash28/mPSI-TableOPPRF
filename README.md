@@ -63,6 +63,4 @@ Alternatively, you can run
 
 
 ## Help
-For any questions on building or running the library, please contact the following as applicable:
-	[`Ni Trieu`](http://people.oregonstate.edu/~trieun/) at trieun at oregonstate dot edu
-	Akash Shah or Nishka Dasgupta at akashshah08 at outlook dot com or nishka dot dasgupta at yahoo dot com for queries regarding the circuit code
+For any questions on building or running the library, please contact Akash Shah or Nishka Dasgupta at akashshah08 at outlook dot com or nishka dot dasgupta at yahoo dot com for queries regarding the circuit code
